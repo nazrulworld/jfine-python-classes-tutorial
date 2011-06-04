@@ -1,0 +1,15 @@
+Things TODO (no surprisingly).
+
+
+# From construct.rst.
+
+Why inherit from object?
+
+What is a dictproxy?
+
+What is the MRO?
+
+Which objects don't have a dictionary? (An instance of a class that
+has __slots__.)
+
+What is an attribute?
