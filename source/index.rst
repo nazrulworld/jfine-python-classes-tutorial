@@ -12,6 +12,7 @@ Contents:
    :maxdepth: 2
 
    construct
+   using-type
 
 Indices and tables
 ==================
