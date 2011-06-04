@@ -39,3 +39,8 @@ setattr
 consistency: doc-string, not docstring.
 
 -OO and property(doc='doc string')
+
+
+Rename get_body to get_class_body?  Or class_body_as_dict?
+
+Dependence on jfine.classtools.

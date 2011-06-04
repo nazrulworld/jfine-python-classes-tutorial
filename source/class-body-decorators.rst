@@ -14,6 +14,14 @@ by use of class body decorators.
 
    from jfine.classtools import get_body
 
+   # For use later.
+   def class_body_decorator(fn):
+
+      def wrapped_fn(cls):
+          return fn(**get_body(cls))
+
+      return wrapped_fn
+
 
 Example: property
 -----------------
@@ -46,7 +54,7 @@ Here's the syntax we'd like to use.
 
 .. code-block:: python
 
-   @class_as_property
+   @class_body_as_property
    class attrib(object):
 
        def fget(self):
@@ -56,4 +64,53 @@ Here's the syntax we'd like to use.
           '''Code to set attribute goes here.'''
 
 
-In this section we show how to construct such a decorator.
+We will now construct such a decorator.
+
+
+:func:`class_body_as_property`
+------------------------------
+
+This function, designed to be used as a decorator, is applied to a
+class and returns a property.
+
+>>> def class_body_as_property(cls):
+...
+...     return property(**get_body(cls))
+
+Here is an example of its use.  We add a property called value, which
+stores its data in _value (which by Python convention is private).  In
+this example, we validate the data before it is stored (to ensure that
+it is an integer).
+
+>>> class B(object):
+...    def __init__(self):
+...        self._value = 0
+...
+...    @class_body_as_property
+...    class value(object):
+...        def fget(self):
+...            return self._value
+...        def fset(self, value):
+...            # Ensure that value to be stored is an int.
+...            assert isinstance(value, int), repr(value)
+...            self._value = value
+
+
+Here we show that :class:`B` has the required properties.
+
+>>> b = B()
+>>> b.value
+0
+
+>>> b.value = 3
+
+>>> b.value
+3
+
+>>> b.value = 'a string'
+Traceback (most recent call last):
+AssertionError: 'a string'
+
+.. For later.
+.. >>> class_body_as_property = class_body_decorator(property)
+
