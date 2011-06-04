@@ -32,11 +32,15 @@ Attributes __doc__ and __module__ are there for documentation, and to
 give better error messages in tracebacks.  The other attributes are
 there for system purposes.
 
-In addition, our class has attributes that are not even listed in the
-dictionary.
+In addition, our class two attributes that are not even listed in the
+dictionary.  The __bases__ attribute is the list of base classes
+provided in the original class statement.
 
 >>> A.__bases__
 (<type 'object'>,)
+
+The method resolution order (mro) attribute __mro__ is computed from
+the bases of the class.  It provides support for multiple inheritance.
 
 >>> A.__mro__
 (<class 'A'>, <type 'object'>)
