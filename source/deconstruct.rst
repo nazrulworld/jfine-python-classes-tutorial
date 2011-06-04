@@ -63,3 +63,56 @@ what it says below, it's the name of the module.
 >>> A.__module__
 '__builtin__'
 
+
+The body of a class
+-------------------
+
+Here we define a function that copies the body, as a dictionary, out
+of a class.  But first we must answer the question: Is the doc-string
+part of the body of a class?
+
+There is no completely satisfactory answer to this question, as there
+are good arguments on both sides.  We choose NO as the answer, because
+for example using the -OO command line option will *remove
+doc-strings*, and so they are not an essential part of the body of the
+class.  (However, -OO does *not* remove doc-strings produced
+explicitly, by assigning to __doc__.)
+
+The keys to be excluded are precisely the ones that the empty class
+(which has an empty body) has.
+
+>>> _excluded_keys = set(A.__dict__.keys())
+
+The :func:`get_body` function simply filters the class dictionary,
+copying only the items whose key is not excluded.
+
+>>> def get_body(cls):
+...     return dict(
+...         (key, value)
+...         for (key, value) in cls.__dict__.items()
+...         if key not in _excluded_keys
+...         )
+
+As expected, the empty class has an empty body.
+
+>>> get_body(A)
+{}
+
+Here's a class whose body is not empty.
+
+>>> class B(object):
+...     'This docstring is not part of the body.'''
+...     s = 'a string'
+...     def f(self): pass
+
+
+We get what we expect for the body.  (See [somewhere] for why we need
+the __func__.)
+
+>>> get_body(B) == dict(s='a string', f=B.f.__func__)
+True
+
+Here's another way of expressing the same truth.
+
+>>> sorted(get_body(B).items())
+[('f', <function f at 0x...>), ('s', 'a string')]

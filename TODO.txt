@@ -23,3 +23,17 @@ Note the funny occurence of '__builtin__'.
 
 In Sphinx subclass string to get name of module right (or at least
 better).
+
+Why we need __func__ in:
+
+>>> get_body(B) == dict(s='a string', f=B.f.__func__)
+
+
+In Jython empty class dict has no __doc__.
+
+# Elsewhere
+
+getattr
+setattr
+
+consistency: doc-string, not docstring.
