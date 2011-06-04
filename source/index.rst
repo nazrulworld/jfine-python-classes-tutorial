@@ -13,6 +13,7 @@ Contents:
 
    construct
    deconstruct
+   class-body-decorators
    using-type
 
 Indices and tables
