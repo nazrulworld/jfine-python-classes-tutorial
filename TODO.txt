@@ -19,3 +19,7 @@ Add A.__name__.
 
 # From deconstruct.rst
 
+Note the funny occurence of '__builtin__'.
+
+In Sphinx subclass string to get name of module right (or at least
+better).
