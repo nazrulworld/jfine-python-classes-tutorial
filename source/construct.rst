@@ -28,6 +28,9 @@ dictproxy) is not.
 >>> sorted(A.__dict__.keys())
 ['__dict__', '__doc__', '__module__', '__weakref__']
 
+Attributes __doc__ and __module__ are there for documentation, and to
+give better error messages in tracebacks.  The other attributes are
+there for system purposes.
 
 In addition, our class has attributes that are not even listed in the
 dictionary.
@@ -37,4 +40,8 @@ dictionary.
 
 >>> A.__mro__
 (<class 'A'>, <type 'object'>)
+
+For now the important thing is that even the empty class has
+attributes.  (For IronPython and Jython the attributes are slightly
+different.)
 
