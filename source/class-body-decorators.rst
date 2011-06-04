@@ -10,6 +10,11 @@ This section shows how to create and use function values dictionaries,
 by use of class body decorators.
 
 
+.. testsetup::
+
+   from jfine.classtools import get_body
+
+
 Example: property
 -----------------
 
