@@ -13,6 +13,7 @@ Contents:
 
    construct
    class_body_as_dict
+   property_from_class
    class-body-decorators
    deconstruct
    using-type

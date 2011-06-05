@@ -1,46 +1,37 @@
-Class body decorators
-=====================
+:func:`property_from_class`
+===========================
 
-When programming in Python, it's quite common to need a dictionary
-whose keys are strings and whose values are functions.  However,
-creating a dictionary of functions can be quite awkward, unless one
-uses the class statement to do this.
-
-This section shows how to create and use function values dictionaries,
-by use of class body decorators.
-
+This section shows how using a class decorator, based upon
+:doc:`class_body_as_dict`, can make it much easier to define complex
+properties.  But first we review properties.
 
 .. testsetup::
 
    from jfine.classtools import class_body_as_dict
 
-   # For use later.
-   def class_body_decorator(fn):
-
-      def wrapped_fn(cls):
-          return fn(**class_body_as_dict(cls))
-
-      return wrapped_fn
 
 
-Example: property
------------------
+About properties
+----------------
 
-Here is an example.  The :func:`property` type is a way of 'owning the
-dot' so that attribute getting, setting and deletion calls specified
-functions.
+The :func:`property` type is a way of 'owning the dot' so that
+attribute getting, setting and deletion calls specified functions.
 
 One adds a property to a class by adding to its a body a line such as
 the following, but with suitable functions for some or all of fget,
-fset and fdel.
+fset and fdel.  One can also specify doc to give the property a
+doc-string.
 
 .. code-block:: python
 
    attrib = property(fget=None, fset=None, fdel=None, doc=None)
 
 If all one wants is to specify fset (which is a common case) you can
-use property as a decorator.  For example, to make the area of a
-rectangle a read-only property you could write:
+use property as a decorator.  This works because fget is the first
+argument.
+
+For example, to make the area of a rectangle a read-only property you
+could write:
 
 .. code-block:: python
 
@@ -54,8 +45,9 @@ Here's the syntax we'd like to use.
 
 .. code-block:: python
 
-   @class_body_as_property
+   @property_from_class
    class attrib(object):
+       '''Doc-string for property.'''
 
        def fget(self):
           '''Code to get attribute goes here.'''
@@ -67,16 +59,21 @@ Here's the syntax we'd like to use.
 We will now construct such a decorator.
 
 
-:func:`class_body_as_property`
-------------------------------
+Definition of :func:`property_from_class`
+-----------------------------------------
 
 This function, designed to be used as a decorator, is applied to a
 class and returns a property.  Notice how we pick up the doc-string as
-a separate parameter.
+a separate parameter.  We don't have to check for unwanted keys in the
+class dictionary - :func:`property` will do that for us.
 
->>> def class_body_as_property(cls):
+>>> def property_from_class(cls):
 ...
 ...     return property(doc=cls.__doc__, **class_body_as_dict(cls))
+
+
+Using :func:`property_from_class`
+---------------------------------
 
 Here is an example of its use.  We add a property called value, which
 stores its data in _value (which by Python convention is private).  In
@@ -87,7 +84,7 @@ it is an integer).
 ...    def __init__(self):
 ...        self._value = 0
 ...
-...    @class_body_as_property
+...    @property_from_class
 ...    class value(object):
 ...        '''The value must be an integer.'''
 ...        def fget(self):
@@ -116,6 +113,17 @@ Here we show that :class:`B` has the required properties.
 Traceback (most recent call last):
 AssertionError: 'a string'
 
-.. For later.
-.. >>> class_body_as_property = class_body_decorator(property)
+
+Unwanted keys
+-------------
+
+If the class body contains a key that property does not accept we for
+no extra work get an exception (which admittedly could be a clearer).
+
+>>> @property_from_class
+... class value(object):
+...    def get(self):
+...        return self._value
+Traceback (most recent call last):
+TypeError: 'get' is an invalid keyword argument for this function
 
