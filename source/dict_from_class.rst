@@ -1,5 +1,5 @@
-:func:`class_body_as_dict`
-==============================
+:func:`dict_from_class`
+=======================
 
 In this section we define a functions that gets a dictionary from a
 class.  This dictionary contains all the information supplied in the
@@ -7,7 +7,7 @@ body of a class statement, except for the doc-string.
 
 
 The __dict__ of the empty class
---------------------------------
+-------------------------------
 
 Here's our empty class again:
 
@@ -65,13 +65,13 @@ The keys to be excluded are precisely the ones that the empty class
 
 >>> _excluded_keys = set(A.__dict__.keys())
 
-Definition of :func:`class_body_as_dict`
+Definition of :func:`dict_from_class`
 ----------------------------------------
 
 This function simply filters the class dictionary, copying only the
 items whose key is not excluded.
 
->>> def class_body_as_dict(cls):
+>>> def dict_from_class(cls):
 ...     return dict(
 ...         (key, value)
 ...         for (key, value) in cls.__dict__.items()
@@ -80,7 +80,7 @@ items whose key is not excluded.
 
 As expected, the empty class has an empty body.
 
->>> class_body_as_dict(A)
+>>> dict_from_class(A)
 {}
 
 Here's a class whose body is not empty.
@@ -94,10 +94,10 @@ Here's a class whose body is not empty.
 We get what we expect for the body.  (See [somewhere] for why we need
 the __func__.)
 
->>> class_body_as_dict(B) == dict(s='a string', f=B.f.__func__)
+>>> dict_from_class(B) == dict(s='a string', f=B.f.__func__)
 True
 
 Here's another way of expressing the same truth.
 
->>> sorted(class_body_as_dict(B).items())
+>>> sorted(dict_from_class(B).items())
 [('f', <function f at 0x...>), ('s', 'a string')]

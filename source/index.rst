@@ -12,7 +12,7 @@ Contents:
    :maxdepth: 2
 
    construct
-   class_body_as_dict
+   dict_from_class
    property_from_class
    class-body-decorators
    deconstruct

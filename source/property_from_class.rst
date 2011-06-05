@@ -2,12 +2,12 @@
 ===========================
 
 This section shows how using a class decorator, based upon
-:doc:`class_body_as_dict`, can make it much easier to define complex
+:doc:`dict_from_class`, can make it much easier to define complex
 properties.  But first we review properties.
 
 .. testsetup::
 
-   from jfine.classtools import class_body_as_dict
+   from jfine.classtools import dict_from_class
 
 
 
@@ -69,7 +69,7 @@ class dictionary - :func:`property` will do that for us.
 
 >>> def property_from_class(cls):
 ...
-...     return property(doc=cls.__doc__, **class_body_as_dict(cls))
+...     return property(doc=cls.__doc__, **dict_from_class(cls))
 
 
 Using :func:`property_from_class`
