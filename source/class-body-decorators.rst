@@ -71,11 +71,12 @@ We will now construct such a decorator.
 ------------------------------
 
 This function, designed to be used as a decorator, is applied to a
-class and returns a property.
+class and returns a property.  Notice how we pick up the doc-string as
+a separate parameter.
 
 >>> def class_body_as_property(cls):
 ...
-...     return property(**class_body_as_dict(cls))
+...     return property(doc=cls.__doc__, **class_body_as_dict(cls))
 
 Here is an example of its use.  We add a property called value, which
 stores its data in _value (which by Python convention is private).  In
@@ -88,6 +89,7 @@ it is an integer).
 ...
 ...    @class_body_as_property
 ...    class value(object):
+...        '''The value must be an integer.'''
 ...        def fget(self):
 ...            return self._value
 ...        def fset(self, value):
@@ -106,6 +108,9 @@ Here we show that :class:`B` has the required properties.
 
 >>> b.value
 3
+
+>>> B.value.__doc__
+'The value must be an integer.'
 
 >>> b.value = 'a string'
 Traceback (most recent call last):
