@@ -12,13 +12,13 @@ by use of class body decorators.
 
 .. testsetup::
 
-   from jfine.classtools import get_body
+   from jfine.classtools import class_body_as_dict
 
    # For use later.
    def class_body_decorator(fn):
 
       def wrapped_fn(cls):
-          return fn(**get_body(cls))
+          return fn(**class_body_as_dict(cls))
 
       return wrapped_fn
 
@@ -75,7 +75,7 @@ class and returns a property.
 
 >>> def class_body_as_property(cls):
 ...
-...     return property(**get_body(cls))
+...     return property(**class_body_as_dict(cls))
 
 Here is an example of its use.  We add a property called value, which
 stores its data in _value (which by Python convention is private).  In

@@ -83,10 +83,10 @@ The keys to be excluded are precisely the ones that the empty class
 
 >>> _excluded_keys = set(A.__dict__.keys())
 
-The :func:`get_body` function simply filters the class dictionary,
-copying only the items whose key is not excluded.
+The :func:`class_body_as_dict` function simply filters the class
+dictionary, copying only the items whose key is not excluded.
 
->>> def get_body(cls):
+>>> def class_body_as_dict(cls):
 ...     return dict(
 ...         (key, value)
 ...         for (key, value) in cls.__dict__.items()
@@ -95,7 +95,7 @@ copying only the items whose key is not excluded.
 
 As expected, the empty class has an empty body.
 
->>> get_body(A)
+>>> class_body_as_dict(A)
 {}
 
 Here's a class whose body is not empty.
@@ -109,10 +109,10 @@ Here's a class whose body is not empty.
 We get what we expect for the body.  (See [somewhere] for why we need
 the __func__.)
 
->>> get_body(B) == dict(s='a string', f=B.f.__func__)
+>>> class_body_as_dict(B) == dict(s='a string', f=B.f.__func__)
 True
 
 Here's another way of expressing the same truth.
 
->>> sorted(get_body(B).items())
+>>> sorted(class_body_as_dict(B).items())
 [('f', <function f at 0x...>), ('s', 'a string')]
