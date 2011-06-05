@@ -1,37 +1,19 @@
-Deconstructing classes
-======================
+:func:`class_body_as_dict`
+==============================
 
-In :doc:`construct` we saw how to construct a class (by using the
-**class** keyword).  In this section we see how to reverse the
-process.
-
-To use the **class** keyword you have to specify:
-
-   #. A name for your class.
-
-   #. A tuple of bases.
-
-   #.  A class body.
-
-In this section we see how to get this information back again.  Let's
-do the easy stuff first.  Here's our empty class again:
-
->>> class A(object):
-...     pass
-
-Here's how to get the name of the class:
-
->>> A.__name__
-'A'
-
-And here's how to get the bases:
-
->>> A.__bases__
-(<type 'object'>,)
+In this section we define a functions that gets a dictionary from a
+class.  This dictionary contains all the information supplied in the
+body of a class statement, except for the doc-string.
 
 
 The __dict__ of the empty class
 --------------------------------
+
+Here's our empty class again:
+
+>>> class A(object):
+...     pass
+
 
 As seen in :doc:`construct`, even for the empty class its class
 dictionary has entries.  Handling these always-there entries is a
@@ -64,27 +46,30 @@ what it says below, it's the name of the module.
 '__builtin__'
 
 
-The body of a class
--------------------
+Is the doc-string part of the body?
+-----------------------------------
 
-Here we define a function that copies the body, as a dictionary, out
-of a class.  But first we must answer the question: Is the doc-string
-part of the body of a class?
+Soon we will define a function that copies the body, as a dictionary,
+out of a class.  But first we must answer the question: Is the
+doc-string part of the body of a class?
 
 There is no completely satisfactory answer to this question, as there
-are good arguments on both sides.  We choose NO as the answer, because
-for example using the -OO command line option will *remove
-doc-strings*, and so they are not an essential part of the body of the
-class.  (However, -OO does *not* remove doc-strings produced
-explicitly, by assigning to __doc__.)
+are good arguments on both sides.  We choose NO, because for example
+using the -OO command line option will *remove doc-strings*, and so
+they are not an essential part of the body of the class.  (However,
+-OO does *not* remove doc-strings produced explicitly, by assigning to
+__doc__.)
 
 The keys to be excluded are precisely the ones that the empty class
 (which has an empty body) has.
 
 >>> _excluded_keys = set(A.__dict__.keys())
 
-The :func:`class_body_as_dict` function simply filters the class
-dictionary, copying only the items whose key is not excluded.
+Definition of :func:`class_body_as_dict`
+----------------------------------------
+
+This function simply filters the class dictionary, copying only the
+items whose key is not excluded.
 
 >>> def class_body_as_dict(cls):
 ...     return dict(

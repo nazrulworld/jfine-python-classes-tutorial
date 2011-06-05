@@ -31,6 +31,12 @@ Why we need __func__ in:
 
 In Jython empty class dict has no __doc__.
 
+
+# class_body_as_dict.rst
+
+Link to use of docstring in class_body_as_property.
+
+
 # Elsewhere
 
 getattr

@@ -12,8 +12,9 @@ Contents:
    :maxdepth: 2
 
    construct
-   deconstruct
+   class_body_as_dict
    class-body-decorators
+   deconstruct
    using-type
 
 Indices and tables
