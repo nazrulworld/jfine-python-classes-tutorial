@@ -18,6 +18,7 @@ Contents:
    deconstruct
    type-name-bases-dict
    subclass-int
+   subclass-tuple
 
 Indices and tables
 ==================
