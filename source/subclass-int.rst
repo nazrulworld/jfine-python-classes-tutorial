@@ -1,5 +1,5 @@
-Subclassing :class:`int` and :class:`tuple`
-===========================================
+Subclassing :class:`int`
+========================
 
 We subclass in order to create a new class whose behaviour is
 inherited from the base classes, except that the new class can also
@@ -37,14 +37,12 @@ TypeError: 'str' object does not support item assignment
 Enumerated integers and named tuples
 ------------------------------------
 
-We will use enumerated integers and named tuples as examples in this
-section.  In Python, booleans are an example of an enumerated integer
-type.  Since Python 2.6, :class:`namedtuple` has been part of the
-:mod:`collections` module.
+We will use enumerated integers as an example in this section.  In
+Python, booleans are an example of an enumerated integer type.
 
-However, our task in this section is not to use these types but to
+However, our task in this section is not to use booleans but to
 understand them.  This will allow us to create our own subclasses of
-immutable types.
+int and of immutable types.
 
 
 The :class:`bool` type
