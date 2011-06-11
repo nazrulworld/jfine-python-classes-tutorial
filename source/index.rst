@@ -16,7 +16,7 @@ Contents:
    property_from_class
    class-body-decorators
    deconstruct
-   using-type
+   type-name-bases-dict
 
 Indices and tables
 ==================
