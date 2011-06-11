@@ -17,7 +17,7 @@ Contents:
    class-body-decorators
    deconstruct
    type-name-bases-dict
-   subclass-int-and-tuple
+   subclass-int
 
 Indices and tables
 ==================
