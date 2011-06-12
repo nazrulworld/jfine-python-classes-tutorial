@@ -20,6 +20,7 @@ Contents:
    subclass-int
    subclass-tuple
    call-a-class
+   javascript-objects
 
 
 Indices and tables
