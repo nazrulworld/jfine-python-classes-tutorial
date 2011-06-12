@@ -21,6 +21,7 @@ Contents:
    subclass-int
    subclass-tuple
    call-a-class
+   metaclass
    javascript-objects
 
 
