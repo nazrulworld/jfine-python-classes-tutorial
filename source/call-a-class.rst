@@ -38,7 +38,7 @@ We will explain what happens when Python executes the following.
 
 First, Python creates an object that has the right type.  (The
 temporary *tmp* is introduced just to explain what happens. Python
-stores the value at a nameless location.)
+stores its value at a nameless location.)
 
 >>> tmp = A.__new__(A, 'an arg')
 >>> type(tmp)
@@ -59,3 +59,34 @@ Second, Python runs our initialisation code.
 Finally, Python stores the value at *a*.
 
 >>> a = tmp
+
+
+The default __new__
+===================
+
+We did not define a __new__ method for our class A, but all the same
+Python was able to call A.__new__.  How is this possible?
+
+For an instance of a class C, getting an attribute proceeds via the
+method resolution order of C.  Something similar, but with important
+differences, happens when getting an attribute from C itself (rather
+than just an instance).
+
+Here's proof that A.__new__ and object.__new__ are the same object.
+We show this in two different, but equivalant, ways.
+
+>>> A.__new__ is object.__new__
+True
+>>> id(A.__new__) == id(object.__new__)
+True
+
+This explains how it is that Python can call A.__new__ even though we
+did not supply such a function ourselves.
+
+For another example, we subclass *int*.
+
+>>> class subint(int): pass
+>>> subint.__new__ is int.__new__
+True
+
+
