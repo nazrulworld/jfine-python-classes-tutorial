@@ -11,6 +11,7 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+   decorators
    construct
    dict_from_class
    property_from_class
