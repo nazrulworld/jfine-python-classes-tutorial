@@ -19,6 +19,8 @@ Contents:
    type-name-bases-dict
    subclass-int
    subclass-tuple
+   call-a-class
+
 
 Indices and tables
 ==================
