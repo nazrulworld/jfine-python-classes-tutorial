@@ -22,6 +22,7 @@ Contents:
    subclass-tuple
    call-a-class
    metaclass
+   metaclass-attribute
    javascript-objects
 
 
