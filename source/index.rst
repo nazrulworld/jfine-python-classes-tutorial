@@ -23,6 +23,7 @@ Contents:
    call-a-class
    metaclass
    metaclass-attribute
+   decorators-versus-metaclass
    javascript-objects
 
 
