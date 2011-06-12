@@ -90,3 +90,33 @@ For another example, we subclass *int*.
 True
 
 
+Summary
+=======
+
+Suppose C is a class.  When you call, say
+
+    .. code-block:: python
+
+        C(*argv, **kwargs)
+
+the following happens.
+
+1.  C.__new__ is found.
+
+2.  The result of the following call is stored, say in tmp.
+
+    .. code-block:: python
+
+       C.__new__(C, *argv, **kwargs)
+
+3.  tmp.__init__ is found.
+
+4.  The result of the following is return as the value of the class call.
+
+    .. code-block:: python
+
+       self.__init__(*argv, **kwargs)
+
+5.  (Not discussed.)  If tmp is not an instance of C (which includes
+    subclasses of C) then steps 3 and 4 are omitted.
+
