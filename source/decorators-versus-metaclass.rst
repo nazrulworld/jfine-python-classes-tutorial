@@ -1,14 +1,99 @@
 Decorators versus __metaclass__
 ===============================
 
-Alex Martelli's excellent book *Python in a Nutshell* contains, as an
-example of the use of the __metaclass__ attribute, the construction of
-a metaclass (subclass of type) such that inheriting from this
-metaclass produces what he calls a Bunch, which he rightly says is
-similar to the struct type in C.
+Whenever a __metaclass__ is used, one could also use a decorator to
+get effectively the same result.  This section discusses this topic.
+
+For an example we use the concept of a Bunch, as discussed in Alex
+Martelli's excellent book *Python in a Nutshell*.  As he says, a Bunch
+is similar to the struct type in C.
+
+
+Bunch using __metaclass__
+--------------------------
+
+The code here is based on the __metaclass__ implementation of Bunch,
+given in *Python in a Nutshell*.  The API is:
+
+.. code-block:: python
+
+    class Point(MetaBunch):
+
+        x = 0.0
+        y = 0.0
+
+The base class :func:`MetaBunch` is defined by:
+
+.. code-block:: python
+
+    class MetaBunch(object):
+
+        __metaclass__ = metaMetaBunch
+
+
+The real work is done in
+
+..  code-block:: python
+
+    class metaMetaBunch(type):
+
+        def __new__(cls, name, bases, body):
+
+            new_body = ... # Computed from body
+
+            return type.__new__(cls, name, bases, new_body)
+
+where I've omitted the crucial code that computes the new_body from
+the old.  (My focus here is on the logic of __metaclass_ and not the
+construction of the new body.)
+
+
+How __metaclass__ works
+-----------------------
+
+In Python the class statement creates the class body from the code you
+have written, placing it in a dictionary.  It also picks up the name
+and the bases in the first line of the class statement.  These three
+arguments, (name, bases, body) are then passed to a function.
+
+The __metaclass__ attribute is part of determining that function.  If
+__metaclass__ is a key in the body dictionary then the value of that
+key is used.  This value could be anything, although if not callable
+an exception will be raised.
+
+In the example above, the MetaBunch class body has a key
+__metaclass__, and so its value metaMetaBunch is used.  It is
+metaMetaBunch that is used to create the value that is stored at
+MetaBunch.
+
+What is that value?  When we instantiate metaMetaBunch we use its
+__new__ method to create the instance, which is an instance of type.
+In particular, the code that creates the new_body is run on the body
+of MetaBunch.
+
+Now what happens when we subclass MetaBunch.  One might think that
+
+* because Point inherits from MetaBunch
+* and because MetaBunch has a __metaclass__ in its body
+* and that __metaclass__ has value metaMetaBunch
+
+it follows that metaMetaBunch is use to construct the Point class.
+
+But this is gotcha.  Even though the conclusion is correct the
+reasoning is not.  What happens is that
+
+* Python looks for __metaclass__ in the body of Point
+* but it's not there so it looks at the bases of Point
+* and in the bases it finds MetaBunch
+* whose type is metaMetaBunch
+
+and so it uses that instead of type when constructing Point.
+
+
+Bunch using decorators
+----------------------
 
 Here we give a construction based on the decorator point of view.
-
 First we define a function, which can be used as a decorator, that
 returns a bunch class.
 
@@ -67,5 +152,3 @@ Similar remarks apply to the docstring.
 >>> RGB(blue=45, green=150)
 a_bunch(blue=45, green=150, red=0)
 
-
-[TODO] Provide a discussion.
