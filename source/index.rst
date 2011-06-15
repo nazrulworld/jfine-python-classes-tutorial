@@ -15,7 +15,6 @@ Contents:
    construct
    dict_from_class
    property_from_class
-   class-body-decorators
    deconstruct
    type-name-bases-dict
    subclass-int
@@ -26,11 +25,5 @@ Contents:
    decorators-versus-metaclass
    javascript-objects
 
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`
 

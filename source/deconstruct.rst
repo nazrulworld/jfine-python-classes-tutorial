@@ -28,3 +28,6 @@ And here's how to get the bases:
 
 >>> A.__bases__
 (<type 'object'>,)
+
+
+[To be continued.]

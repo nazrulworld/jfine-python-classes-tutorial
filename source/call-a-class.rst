@@ -62,7 +62,7 @@ Finally, Python stores the value at *a*.
 
 
 The default __new__
-===================
+-------------------
 
 We did not define a __new__ method for our class A, but all the same
 Python was able to call A.__new__.  How is this possible?
@@ -91,7 +91,7 @@ True
 
 
 Summary
-=======
+-------
 
 Suppose C is a class.  When you call, say
 
