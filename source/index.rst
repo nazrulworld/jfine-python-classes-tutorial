@@ -29,6 +29,7 @@ Contents:
    named-integers
    line-from-file
    subset-of-a-set
+   class-to-and-from-class-data
 
 * :ref:`search`
 
