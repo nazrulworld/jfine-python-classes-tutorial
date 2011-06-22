@@ -26,6 +26,7 @@ Contents:
    javascript-objects
 
    property-from-class
+   named-integers
    line-from-file
    subset-of-a-set
 
