@@ -26,7 +26,7 @@ Contents:
    javascript-objects
 
    line-from-file
-
+   subset-of-a-set
 
 * :ref:`search`
 
