@@ -25,6 +25,7 @@ Contents:
    decorators-versus-metaclass
    javascript-objects
 
+   property-from-class
    line-from-file
    subset-of-a-set
 
