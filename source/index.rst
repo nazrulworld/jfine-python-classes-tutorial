@@ -25,5 +25,8 @@ Contents:
    decorators-versus-metaclass
    javascript-objects
 
+   line-from-file
+
+
 * :ref:`search`
 
