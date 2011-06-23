@@ -36,6 +36,32 @@ def class_data_from_class(cls):
     return metaclass, body, about
 
 
+def class_from_class_data(data):
+
+    metaclass, body, about = data
+    body_extras = {}
+
+    for key in 'doc', 'slots':
+        value = about.get(key)
+        if value is not None:
+            under_under_key = '__%s__' % key
+            body_extras[under_under_key] = value
+
+    name = about['name']
+    cls = metaclass(name, (), body)
+    cls.__module__ = about['module']
+
+    return cls
+
+
 if __name__ == '__main__':
 
-    print class_data_from_class(type('aaa', (), dict(a=3)))
+    cls = type('aaa', (), dict(a=3))
+    cls.__module__ = 'anon'
+    cd1 = class_data_from_class(cls)
+    print cd1
+    cls2 = class_from_class_data(cd1)
+
+    cd2 =  class_data_from_class(cls2)
+    if cd1 != cd2:
+        print cd2
