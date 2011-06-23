@@ -1,3 +1,8 @@
+'''Functions for converting a class to class data and vice versa.
+
+Class data is a tuple from which a class can be reconstructed.
+'''
+
 special_keys = set([
         '__dict__', 
         '__doc__',
@@ -19,6 +24,8 @@ about_keys = set([
 def class_data_from_class(cls):
 
     metaclass = type(cls)
+    bases = cls.__bases__
+
     body = dict(
         (key, value) 
         for (key, value) in cls.__dict__.items()
@@ -33,12 +40,12 @@ def class_data_from_class(cls):
         if value is not None:
             about[key] = value
 
-    return metaclass, body, about
+    return metaclass, bases, body, about
 
 
 def class_from_class_data(data):
 
-    metaclass, body, about = data
+    metaclass, bases, body, about = data
     body_extras = {}
 
     for key in 'doc', 'slots':
@@ -48,7 +55,7 @@ def class_from_class_data(data):
             body_extras[under_under_key] = value
 
     name = about['name']
-    cls = metaclass(name, (), body)
+    cls = metaclass(name, bases, body)
     cls.__module__ = about['module']
 
     return cls
