@@ -1,0 +1,52 @@
+Things TODO (no surprisingly).
+
+
+# From construct.rst.
+
+Why inherit from object?
+
+What is a dictproxy?
+
+What is the MRO?
+
+Which objects don't have a dictionary? (An instance of a class that
+has __slots__.)
+
+What is an attribute?
+
+Add A.__name__.
+
+
+# From deconstruct.rst
+
+Note the funny occurence of '__builtin__'.
+
+In Sphinx subclass string to get name of module right (or at least
+better).
+
+Why we need __func__ in:
+
+>>> get_body(B) == dict(s='a string', f=B.f.__func__)
+
+
+In Jython empty class dict has no __doc__.
+
+
+# class_body_as_dict.rst
+
+Link to use of docstring in class_body_as_property.
+
+
+# Elsewhere
+
+getattr
+setattr
+
+consistency: doc-string, not docstring.
+
+-OO and property(doc='doc string')
+
+
+Rename get_body to get_class_body?  Or class_body_as_dict?
+
+Dependence on jfine.classtools.

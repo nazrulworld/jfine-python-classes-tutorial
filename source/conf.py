@@ -103,7 +103,7 @@ html_theme = 'default'
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
-#html_title = None
+html_title = "Objects and classes in Python tutorial"
 
 # A shorter title for the navigation bar.  Default is the same as html_title.
 #html_short_title = None
@@ -170,7 +170,7 @@ htmlhelp_basename = 'ObjectsandclassesinPythondoc'
 # -- Options for LaTeX output --------------------------------------------------
 
 # The paper size ('letter' or 'a4').
-#latex_paper_size = 'letter'
+latex_paper_size = 'a4'
 
 # The font size ('10pt', '11pt' or '12pt').
 #latex_font_size = '10pt'
@@ -198,6 +198,14 @@ latex_documents = [
 
 # If false, no module index is generated.
 #latex_use_modindex = True
+
+# Copied from javascript-for-python-programmers/source/conf.py
+# Added at the end of the \documentclass[options]{...}.
+# 'english' added to keep Babel quiet.
+# http://groups.google.com/group/sphinx-dev/browse_thread/thread/ee301b14175ad5bb/c06c6600192a17da
+latex_elements = {
+    'classoptions': ',openany,english',
+}
 
 
 # -- Options for Epub output ---------------------------------------------------
