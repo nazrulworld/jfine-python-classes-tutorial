@@ -3,11 +3,15 @@
 Class data is a tuple from which a class can be reconstructed.
 '''
 
+# This file copied from repository python-classes-tutorial and to
+# python-jfine.
+# TODO: Keep both copies in line and merge into classtools.
+
 special_keys = set([
-        '__dict__', 
+        '__dict__',
         '__doc__',
         '__metaclass__',
-        '__module__', 
+        '__module__',
         '__slots__',
         '__weakref__',
 ])
@@ -27,12 +31,12 @@ def class_data_from_class(cls):
     bases = cls.__bases__
 
     body = dict(
-        (key, value) 
+        (key, value)
         for (key, value) in cls.__dict__.items()
         if key not in special_keys
         )
 
-    
+
     about = {}
     for key in about_keys:
         under_under_key = '__%s__' % key
