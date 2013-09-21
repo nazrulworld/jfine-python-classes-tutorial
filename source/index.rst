@@ -11,6 +11,7 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+   topics
    decorators
    construct
    dict_from_class
